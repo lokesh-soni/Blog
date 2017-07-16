@@ -1,0 +1,19 @@
+doctype html
+html
+	head
+		title LokiBlog
+		link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+		link(rel='stylesheet', href='/stylesheets/style.css')
+		
+	body
+		.blog-masthead
+			.container
+				nav.blog-nav
+					a.blog-nav-item.active(href='/') Home
+					a.blog-nav-item(href='/posts/add') Add Posts
+					a.blog-nav-item(href='/categories/add') Add categories
+		!= messages()
+		block content
+	footer.blog-footer
+		p 
+			| LokiBlog &copy; 2017

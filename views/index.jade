@@ -1,0 +1,68 @@
+extends layout
+
+block content
+	.container
+		.blog-header
+			h1.blog-title The Loki Blog
+			p.lead.blog-description Developed by Lokesh Soni.
+		.row
+			.col-sm-8.blog-main
+				if posts 
+					each post, i in posts			
+						.blog-post
+							h2.blog-post-title=post.title
+							p.blog-post-meta
+								| #{post.date} by 
+								a(href='#') #{post.author}
+							p #{post.body}
+							hr
+				nav
+					ul.pager
+						li
+							a(href='#') Previous
+						li
+							a(href='#') Next
+			.col-sm-3.col-sm-offset-1.blog-sidebar
+				.sidebar-module.sidebar-module-inset
+					h4 About
+					p
+						| This blog is made for sample purpose only.
+
+				.sidebar-module
+					h4 Archives
+					ol.list-unstyled
+						li
+							a(href='#') March 2014
+						li
+							a(href='#') February 2014
+						li
+							a(href='#') January 2014
+						li
+							a(href='#') December 2013
+						li
+							a(href='#') November 2013
+						li
+							a(href='#') October 2013
+						li
+							a(href='#') September 2013
+						li
+							a(href='#') August 2013
+						li
+							a(href='#') July 2013
+						li
+							a(href='#') June 2013
+						li
+							a(href='#') May 2013
+						li
+							a(href='#') April 2013
+				.sidebar-module
+					h4 Elsewhere
+					ol.list-unstyled
+						li
+							a(href='https://github.com/lokesh-soni') GitHub
+						li
+							a(href='https://twitter.com/lokesh_soni_4') Twitter
+						li
+							a(href='https://fb.com/lokesh.soni.4') Facebook
+		
+				
