@@ -23,6 +23,10 @@ var lists = mongoose.Schema({
 		type: String,
 		required: true
 	},
+	mainimage:{
+		data: Buffer,
+		type: String
+	},
 	date:{
 		type: Date,
 		default: Date.now

@@ -1,0 +1,32 @@
+extends layout
+
+block content
+	.panel.panel-default
+			.panel-heading
+				h3.panel-title Add Post
+			.panel-body
+				.row
+					.col-md-12
+						form(method='post', action='/posts/add', enctype="multipart/form-data")
+							.form-group
+								label Title
+								input.form-control(name='title',type='text', placeholder='Title')
+							.form-group
+								label Category
+								select.form-control (name= 'category')
+									option(value='Technology') Technology
+									option(value='Drama') Drama
+									option(value='ScienceFiction') Science Fiction
+									option(value='Politics') Politics
+									option(value='Other') Other
+							.form-group
+								label Author
+								input.form-control(name='author',type='text', placeholder='Author')
+							.form-group
+								label Body
+								textarea.form-control(name = 'body',id='body' placeholder='Content')
+							.form-group
+								label Main Image
+								input.form-control(name='mainimage', type='file')
+							button.btn.btn-default(type='submit', value = 'save') Submit
+	a(href='/') Go Back
