@@ -24,7 +24,7 @@ var lists = mongoose.Schema({
 		required: true
 	},
 	mainimage:{
-		data: Buffer,
+	
 		type: String
 	},
 	date:{

@@ -11,6 +11,8 @@ var mongoose = require('mongoose');
 var multer = require('multer');
 var flash = require('connect-flash');
 
+var fileUpload = require('express-fileupload');
+
 
 mongoose.connect('mongodb://localhost/nodeBlog');
 var db = mongoose.connection;
@@ -20,12 +22,21 @@ var posts = require('./routes/posts');
 
 var app = express();
 
+app.locals.moment = require('moment');
+
+app.locals.truncatedText = function(text, length){
+	var truncatedText = text.substring(0,length)+' ...';
+	return truncatedText;
+}
+
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-app.use(multer({dest:'./uploads'}).any());
+app.use(multer({dest:'./public/images/uploads/'}).any());
 
+//app.use(fileUpload());
 // uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
@@ -39,6 +50,9 @@ app.use(session({
 	saveUninitialized: true,
 	resave: true
 }));
+
+
+
 
 //Validator
 app.use(expressValidator({

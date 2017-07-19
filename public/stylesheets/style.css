@@ -25,16 +25,30 @@ h6, .h6 {
  * Override Bootstrap's default container.
  */
 
-@media (min-width: 1200px) {
+@media (min-width: 1200px){
+
   .container {
     width: 970px;
   }
 }
 
 
+
 /*
  * Masthead for nav
  */
+.blog-headings {
+  font-family: Georgia,serif;
+  font-size: 40px;
+  color: #000;
+  font-style: solid;
+
+}
+.blog-headings:hover,
+.blog-headings:focus {
+  color: #555;
+  text-decoration: none;  
+}
 
 .blog-masthead {
   background-color: #428bca;
@@ -137,7 +151,15 @@ h6, .h6 {
 /*
  * Blog posts
  */
-
+.giveMeEllipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2; /* number of lines to show */
+      /* fallback */
+  
+}
 .blog-post {
   margin-bottom: 60px;
 }
@@ -150,6 +172,18 @@ h6, .h6 {
   color: #999;
 }
 
+ul.success li{
+  padding: 15px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  margin-right: 40px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+  list-style: none;
+}
 
 /*
  * Footer

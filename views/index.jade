@@ -8,15 +8,18 @@ block content
 		.row
 			.col-sm-8.blog-main
 				if posts 
-					each post, i in posts			
-						.blog-post
-							h2.blog-post-title=post.title
-							p.blog-post-meta
-								| #{post.date} by 
-								a(href='#') #{post.author}
-							p #{post.body}
-							img.thumbnail(src='#{post.mainimage}')
-							hr
+				each post, i in posts			
+					.blog-post
+						a.blog-headings(href='/posts/show/#{post._id}') "#{post.title}"
+						p.blog-post-meta
+							| Posted in #{post.category} on #{moment(post.date).format("DD MMM,YYYY")} by 
+							a(href='#') #{post.author}
+							!=truncatedText(post.body, 300) 
+						a(href='/posts/show/#{post._id}') Read More
+						hr
+				else
+					p.noposts There are no posts to display
+
 				nav
 					ul.pager
 						li
@@ -28,34 +31,6 @@ block content
 					h4 About
 					p
 						| This blog is made for sample purpose only.
-
-				.sidebar-module
-					h4 Archives
-					ol.list-unstyled
-						li
-							a(href='#') March 2014
-						li
-							a(href='#') February 2014
-						li
-							a(href='#') January 2014
-						li
-							a(href='#') December 2013
-						li
-							a(href='#') November 2013
-						li
-							a(href='#') October 2013
-						li
-							a(href='#') September 2013
-						li
-							a(href='#') August 2013
-						li
-							a(href='#') July 2013
-						li
-							a(href='#') June 2013
-						li
-							a(href='#') May 2013
-						li
-							a(href='#') April 2013
 				.sidebar-module
 					h4 Elsewhere
 					ol.list-unstyled
