@@ -5,44 +5,15 @@ var mongoose = require('mongoose');
 
 mongoose.connect('mongodb://localhost/nodeBlog');
 var db = mongoose.connection;
-
-var lists = mongoose.Schema({
-	post_id:{
-		type: String,
-		required: true
-	},
-	title:{
-		type: String,
-		required: true
-	},
-	author:{
-		type: String,
-		required: true
-	},
-	body:{
-		type: String,
-		required: true
-	},
-	mainimage:{
-	
-		type: String
-	},
-	date:{
-		type: Date,
-		default: Date.now
-	}
-});
-
-var posts = module.exports = mongoose.model('posts', lists);
+	var db = req.db;
+	var posts = db.collection('posts');
 /* GET home page. */
 router.get('/', function(req, res, next) {
 
-	posts.find({},function(err, posts){
+	posts.find({}, {}, function(err, posts){
 		res.render('index',{
 			"posts": posts,
-		});
-	
-		
+		});		
 	});
 });
 
