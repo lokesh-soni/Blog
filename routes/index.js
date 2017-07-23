@@ -2,11 +2,8 @@ var express = require('express');
 var router = express.Router();
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
+var posts = require('../models/posts');
 
-mongoose.connect('mongodb://localhost/nodeBlog');
-var db = mongoose.connection;
-	var db = req.db;
-	var posts = db.collection('posts');
 /* GET home page. */
 router.get('/', function(req, res, next) {
 
