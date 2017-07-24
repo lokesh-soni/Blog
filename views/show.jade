@@ -1,37 +1,34 @@
 extends layout
 
 block content
-	.show
-		h1=post.title
-		p.meta Posted in
-			a(href='/categories/show/#{post.category}')  #{post.category}
-			span  by #{post.author} on #{moment(post.date).format("DD-MMM-YYYY")}
-		img(src='/images/uploads/#{post.mainimage}')
-		!=post.body
-		br
-		hr
-		if post.comments
-			h3 Comments
-			each comment, i in post.comments
-				.comment
-					p.comment-name #{comment.name}
-					p.comment-text #{comment.body}
-			br
-		h3 Add Comment
-		if errors
-			ul.errors
-				each error, i in errors
-					li.alert.alert-danger #{error.msg}
-		form.comment-form(method='post', action='/posts/addcomment')
-			input(name='postid', type='hidden', value='#{post._id}')
-			.form-group
-				label Name
-	        input.form-control(type='text', name='name')
-			.form-group
-				label Email
-				input.form-control(type='email', name='email')
-			.form-group
-				label Body
-				textarea.form-control(name='body', id='body')
+	.container
+		.containers
+			.show
+				h1 #{post.title}
+				p.blog-post-meta 
+					| Posted in
+					a(href='/categories/show/#{post.category}')  #{post.category}
+					span  by 
+					a(href='/posts/show/#{post.author_username}') #{post.author_name}
+					on  #{moment(post.date).format("DD,MMM YYYY")}
+				!=post.body
 				br
-				input.btn.btn-defaut(name='submit', type='submit', value='Add Comment')
+				hr
+				if post.comments
+					h3 Comments
+					each comment, i in post.comments
+						.comment
+							p.comment-name #{comment.name}
+							p.comment-text #{comment.body}
+					br
+			if user
+				form.comment-form(method='post', action='/posts/addcomment')
+					input(name='postid', type='hidden', value='#{post._id}')
+					input(name='name', type='hidden', value='#{user.name}')
+					img(src='../images/like.png', width='50', height='50') 
+					a(href='#')
+						img(src='../images/share2.png', width='30', height='30')
+					.form-group
+						input.form-control(name='body', type= 'text', id='body', placeholder='Write comment...')
+			else
+				p.meta Please Login to Add comment
