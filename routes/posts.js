@@ -12,15 +12,17 @@ var db = mongoose.connection;
 
 router.get('/show/:id', function(req, res, next) {
 	console.log(req.params.id);
-	posts.findById(req.params.id, function(err, posts){
+	posts.findById(req.params.id, function(err, post){
+		console.log(post);
 		res.render('show',{
-			"post": posts
+			"post": post
 		});
 	});
 });
 
 router.get('/add',ensureAuthenticated, function(req, res, next) {
 	categories.find({},{}, function(err, categories){
+		console.log(categories);
 		res.render('addpost',{
 			"categories": categories
 		});	
@@ -42,7 +44,8 @@ router.post('/add', function(req, res){
 	var title = req.body.title;
 	var category = req.body.category;
 	var body = req.body.body;
-	var author = req.body.author;
+	var author_name = req.body.author_name;
+	var author_username = req.body.author_username;
 	var date = new Date();
 	if(req.files.mainimage){
 		var mainImageOriginalName = req.files.originalname;
@@ -53,7 +56,7 @@ router.post('/add', function(req, res){
 		var mainImageSize = req.files.mainimage.size;
 	}
 		else {
-			var mainImageName = 'unnamed.png';
+			var mainImageName = null;
 		}
 	// Form Validation
 	req.checkBody('title', 'Title is required').notEmpty();
@@ -77,7 +80,8 @@ router.post('/add', function(req, res){
 			"body": body,
 			"category": category,
 			"date": date,
-			"author": author,
+			"author_name": author_name,
+			"author_username": author_username,
 			"mainimage": mainImageName
 		}, function(err, post){
 			if(err){
@@ -91,18 +95,15 @@ router.post('/add', function(req, res){
 		});
 	}
 });
+
 router.post('/addcomment', function(req, res, next) {
     // Get form values
-	var name        = req.body.name;
-	var email       = req.body.email;
+    var name 		= req.body.name;
 	var body        = req.body.body;
 	var postid      = req.body.postid;
 	var commentdate = new Date();
 
 	// Form validation
-	req.checkBody('name', 'Name field is required').notEmpty();
-	req.checkBody('email', 'Email field is required').notEmpty();
-	req.checkBody('email', 'Email is incorrectly formatted').isEmail();
 	req.checkBody('body', 'Body field is required').notEmpty();
 
 	var errors = req.validationErrors();
@@ -118,7 +119,6 @@ router.post('/addcomment', function(req, res, next) {
 	} else {
 		var comment = {
 			"name": name,
-			"email": email,
 			"body": body,
 			"commentdate": commentdate
 		};
@@ -138,8 +138,8 @@ router.post('/addcomment', function(req, res, next) {
 					throw err
 				} else {
 					req.flash('success', 'Comment added');
-					res.location('/posts/show/' + postid);
-					res.redirect('/posts/show/' + postid);
+					res.location('/');
+					res.redirect('/');
 				}
 			}
 		);

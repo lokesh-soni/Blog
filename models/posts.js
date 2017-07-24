@@ -7,13 +7,13 @@ var lists = new Schema({
 		type: String,
 		required: true
 	},
-	author:{
+	author_name:{
 		type: String
 	},
-	_id:{
-		type: String,
-
+	author_username:{
+		type: String
 	},
+	
 	category:{
 		type: String
 	},

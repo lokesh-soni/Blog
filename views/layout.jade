@@ -8,15 +8,28 @@ html
 		script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
 		script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
 		link(rel='stylesheet', href='/stylesheets/style.css')
+		link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')
+		link(rel='stylesheet', type='text/css', href='css/jquery.emojipicker.css')
+		script(type='text/javascript', src='js/jquery.emojipicker.js')
+		// Emoji Data
+		link(rel='stylesheet', type='text/css', href='css/jquery.emojipicker.g.css')
+		script(type='text/javascript', src='js/jquery.emojis.js')
+		link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')
+
 		
 	body
-		.container
-			.header.clearfix
-				nav
-					ul.nav.nav-pills.pull-right
+		nav
+			.container
+				.blog
+					ul.nav.nav-pills.navbar-left
+						li(role='presentation')
+								a.titleSize(href='/') The Loki Blog
+					ul.nav.nav-pills.navbar-right
 						if user
 							li(role='presentation')
-								a(href='/posts/add') #{user.name}
+								a(href='/#{user.username}') #{user.name}
+							li(role='presentation')
+								a(href='/posts/add') Add Post
 							li(role='presentation')
 								a(href='/users/logout') Logout
 						else
@@ -24,17 +37,9 @@ html
 								a(href='/users/login') Login
 							li(role='presentation')
 								a(href='/users/register') Register
+			hr
 
-				h3.text-muteda(href='/') Home
-			.row
-				.container
-					.col-lg-12
-						if success_msg
-							.alert.alert-success #{success_msg}
-						if error_msg
-							.alert.alert-danger #{error_msg}
-						if error
-							.alert.alert-danger #{error}
+
 		block content
 	footer.blog-footer
 		p 

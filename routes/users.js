@@ -49,8 +49,8 @@ router.post('/register', function(req, res){
 			console.log(user);
 		});
 		req.flash('success_msg', 'You are registered and can now login');
-		res.location('/posts/add');
-		res.redirect('/posts/add');
+		res.location('/');
+		res.redirect('/');
 	}
 });
 
@@ -84,10 +84,10 @@ passport.deserializeUser(function(id, done) {
 });
 
 router.post('/login',
-  passport.authenticate('local', {successRedirect:'/posts/add', failureRedirect:'/users/login',failureFlash: true}),
+  passport.authenticate('local', {successRedirect:'/', failureRedirect:'/users/login',failureFlash: true}),
   function(req, res) {
-  	res.location('/posts/add');
-    res.redirect('/posts/add');
+  	res.location('/');
+    res.redirect('/');
   });
 
 router.get('/logout', function(req, res){

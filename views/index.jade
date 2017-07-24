@@ -1,22 +1,42 @@
 extends layout
 
 block content
+	button#myBtn(onclick='topFunction()', title='Go to top') Top
 	.container
-		.blog-header
-			h1.blog-title The Loki Blog
-			p.lead.blog-description Developed by Lokesh Soni.
+
 		.row
 			.col-sm-8.blog-main
 				if posts 
 				each post, i in posts			
-					.blog-post
-						a.blog-headings(href='/posts/show/#{post._id}') "#{post.title}"
+					.card
+						a.blog-headings(href='/posts/show/#{post._id}') #{post.title}
 						p.blog-post-meta
 							| Posted in #{post.category} on #{moment(post.date).format("DD MMM,YYYY")} by 
-							a(href='#') #{post.author}
-							!=truncatedText(post.body, 300) 
-						a(href='/posts/show/#{post._id}') Read More
-						hr
+							a(href='/#{post.author_username}') #{post.author_name}
+							!=truncatedText(post.body, 300)
+							a(href='/posts/show/#{post._id}') Read More
+								
+							br
+							br
+							if post.comments
+								h3 Comments
+								each comment, i in post.comments
+									.comment
+										p.comment-name #{comment.name}
+										p.comment-text #{comment.body}
+								br
+						if user
+							form.comment-form(method='post', action='/posts/addcomment')
+								input(name='postid', type='hidden', value='#{post._id}')
+								input(name='name', type='hidden', value='#{user.name}')
+								img(src='../images/like.png', width='50', height='50') 
+								a(href='#')
+									img(src='../images/share2.png', width='30', height='30')
+								.form-group
+									input.form-control(name='body', type= 'text', id='body', placeholder='Write comment...')
+								
+						else
+							p.meta Please Login to Add comment					
 				else
 					p.noposts There are no posts to display
 
@@ -27,10 +47,28 @@ block content
 						li
 							a(href='#') Next
 			.col-sm-3.col-sm-offset-1.blog-sidebar
-				.sidebar-module.sidebar-module-inset
-					h4 About
-					p
-						| This blog is made for sample purpose only.
+				if posts
+					.sidebar-module
+						.profile_card
+							img(src='../images/loki.jpg', style='width:100%')
+							.contain
+								h1.c Lokesh Soni
+								p.titl CEO & Founder, Hostmond
+								p B.P.Poddar Inst.
+								a.b(href='#')
+									i.fa.fa-dribbble
+								a.b(href='#')
+									i.fa.fa-twitter
+								a.b(href='#')
+									i.fa.fa-linkedin
+								a.b(href='#')
+									i.fa.fa-facebook
+								p
+									if user
+										butto Edit Profile
+									else
+										butto Contact
+
 				.sidebar-module
 					h4 Elsewhere
 					ol.list-unstyled

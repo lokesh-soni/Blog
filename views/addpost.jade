@@ -10,6 +10,8 @@ block content
 				.row
 					.col-md-12
 						form(method='post', action='/posts/add', enctype="multipart/form-data")
+							input(name='author_name', type='hidden', value='#{user.name}')
+							input(name='author_username', type='hidden', value='#{user.username}')
 							.form-group
 								label Title 
 								input.form-control(name='title',type='text', placeholder='Title')
@@ -19,9 +21,6 @@ block content
 									if categories
 										each category, i in categories
 											option(value='#{category.title}') #{category.title}
-							.form-group
-								label Author
-								input.form-control(name='author',type='text', placeholder='Author')
 							.form-group
 								label Body
 								textarea.form-control(name = 'body',id='body' placeholder='Content')
